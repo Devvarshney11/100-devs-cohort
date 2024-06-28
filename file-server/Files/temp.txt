@@ -1,0 +1,68 @@
+Customer Information
+--------------------
+Customer ID: 1
+Name: John Doe
+Age: 28
+Gender: Male
+Email: john.doe@example.com
+Phone Number: 123-456-7890
+
+Customer ID: 2
+Name: Jane Smith
+Age: 34
+Gender: Female
+Email: jane.smith@example.com
+Phone Number: 234-567-8901
+
+Customer ID: 3
+Name: Michael Brown
+Age: 45
+Gender: Male
+Email: michael.brown@example.com
+Phone Number: 345-678-9012
+
+Customer ID: 4
+Name: Emily Davis
+Age: 29
+Gender: Female
+Email: emily.davis@example.com
+Phone Number: 456-789-0123
+
+Customer ID: 5
+Name: William Johnson
+Age: 37
+Gender: Male
+Email: william.johnson@example.com
+Phone Number: 567-890-1234
+
+Product Information
+--------------------
+Product ID: 1
+Product Name: Laptop
+Category: Electronics
+Price: 999.99
+Stock Quantity: 50
+
+Product ID: 2
+Product Name: Smartphone
+Category: Electronics
+Price: 499.99
+Stock Quantity: 150
+
+Product ID: 3
+Product Name: Desk Chair
+Category: Furniture
+Price: 89.99
+Stock Quantity: 100
+
+Product ID: 4
+Product Name: Coffee Table
+Category: Furniture
+Price: 129.99
+Stock Quantity: 60
+
+Product ID: 5
+Product Name: Blender
+Category: Kitchen Appliances
+Price: 39.99
+Stock Quantity: 200
