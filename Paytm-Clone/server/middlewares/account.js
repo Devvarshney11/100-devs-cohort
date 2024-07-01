@@ -1,4 +1,4 @@
-const zod = requrie("zod");
+const zod = require("zod");
 
 const transferSchema = zod.object({
   to: zod.string(),

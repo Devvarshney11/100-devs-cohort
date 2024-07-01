@@ -32,45 +32,50 @@ accountRouter.post(
   userAuthMiddleware,
   transferInputValidation,
   async (req, res) => {
+    const session = await mongoose.startSession();
+    session.startTransaction();
     try {
-      const session = await mongoose.startSession();
-      session.startTransaction();
       const { to, balance } = req.body;
       const account = await Account.findOne({
-        userId: res.userId,
+        userId: req.userId,
       }).session(session);
+
       if (!account || account.balance < balance) {
         await session.abortTransaction();
         return res.status(400).json({
           msg: "Insufficient Balance",
         });
       }
+
       const toAccount = await Account.findOne({
         userId: to,
       }).session(session);
+
       if (!toAccount) {
         await session.abortTransaction();
         return res.status(400).json({
           msg: "Invalid Account",
         });
       }
+
       await Account.updateOne(
         {
-          userId: res.userId,
+          userId: req.userId,
         },
         {
           $inc: {
-            balance: -amount,
+            balance: -balance,
           },
         }
       ).session(session);
+
       await Account.updateOne(
         {
           userId: to,
         },
         {
           $inc: {
-            balance: amount,
+            balance: balance,
           },
         }
       ).session(session);
@@ -80,10 +85,14 @@ accountRouter.post(
         msg: "Transfer Successful",
       });
     } catch (e) {
+      await session.abortTransaction();
       res.status(500).json({
         msg: "Internal Server Error",
       });
+    } finally {
+      session.endSession();
     }
   }
 );
+
 module.exports = accountRouter;

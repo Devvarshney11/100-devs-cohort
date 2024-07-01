@@ -16,7 +16,7 @@ userRouter.post("/signup", signUpInputValidation, async (req, res) => {
   try {
     const { username, password, firstName, lastName, balance } = req.body;
     const isUserExist = await User.findOne({ username: username });
-    if (isUserExist._id) {
+    if (isUserExist) {
       return res.status(409).json({ msg: "User Already Exists" });
     }
     const response = await User.create({
@@ -66,9 +66,9 @@ userRouter.put(
   updateInputValidation,
   async (req, res) => {
     try {
-      const { userId, username, password, firstName, lastName } = req.body;
+      const { username, password, firstName, lastName } = req.body;
       const response = await User.findOneAndUpdate(
-        { _id: userId },
+        { _id: req.userId },
         {
           username: username,
           password: password,
@@ -112,3 +112,6 @@ userRouter.get("/bulk", userAuthMiddleware, async (req, res) => {
 });
 
 module.exports = userRouter;
+
+//user1 : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjgyNThiOTk5MWJkNjE2OGI2OTI3ZmQiLCJpYXQiOjE3MTk4MTg0MjV9.m8Af6CAjvI-enty5rJA_p4jRLGS2iIUoRqdAmiJNzKU
+//user2 : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjgyNTkwNzU1NWIwYWZkNmY4Njg5MWQiLCJpYXQiOjE3MTk4MTg1MDN9.eYK7ae8i4EreZQmLurB8awzFi9QoietJHycZCj-f_9M
