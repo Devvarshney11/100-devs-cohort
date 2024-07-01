@@ -5,22 +5,24 @@ import Signin from "./Components/Signin";
 import Dashboard from "./Components/Dashboard";
 import SendMoney from "./Components/SendMoney";
 
+const token = localStorage.getItem("token");
+
 const router = createBrowserRouter([
   {
     path: "/signup",
-    element: <Signup />,
+    element: token ? <Dashboard /> : <Signup />,
   },
   {
     path: "/signin",
-    element: <Signin />,
+    element: token ? <Dashboard /> : <Signin />,
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: token ? <Dashboard /> : <Signin />,
   },
   {
-    path: "/send",
-    element: <SendMoney />,
+    path: "/send/:id/:name",
+    element: token ? <SendMoney /> : <Signin />,
   },
 ]);
 function App() {

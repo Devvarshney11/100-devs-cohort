@@ -60,6 +60,29 @@ userRouter.post("/login", signInInputValidation, async (req, res) => {
   }
 });
 
+userRouter.get("/profile", userAuthMiddleware, async (req, res) => {
+  try {
+    const response = await User.findOne({
+      _id: req.userId,
+    });
+    if (response) {
+      res.status(200).json({
+        msg: "Data Fetched Sucessfully",
+        firstName: response.firstName,
+        lastName: response.lastName,
+        username: response.username,
+      });
+    } else {
+      res.status(401).json({
+        msg: "Wrong User",
+      });
+    }
+  } catch (e) {
+    res.status(500).json({
+      msg: "Internal Server Error",
+    });
+  }
+});
 userRouter.put(
   "/update",
   userAuthMiddleware,
