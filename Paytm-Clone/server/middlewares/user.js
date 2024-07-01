@@ -8,6 +8,7 @@ const signUpSchema = zod.object({
   password: zod.string(),
   firstName: zod.string(),
   lastName: zod.string(),
+  balance: zod.number(),
 });
 
 const signInSchema = zod.object({
@@ -21,12 +22,14 @@ const updateSchema = zod.object({
   firstName: zod.string().optional(),
   lastName: zod.string().optional(),
 });
+
 function signUpInputValidation(req, res, next) {
   const response = signUpSchema.safeParse({
     username: req.body.username,
     password: req.body.password,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
+    balance: req.body.balance,
   });
   if (response.success) {
     next();

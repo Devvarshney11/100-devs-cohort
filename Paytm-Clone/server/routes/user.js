@@ -1,7 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 
-const { User } = require("../db/index.js");
+const { User, Account } = require("../db/index.js");
 const {
   signUpInputValidation,
   signInInputValidation,
@@ -14,7 +14,7 @@ const userRouter = express.Router();
 
 userRouter.post("/signup", signUpInputValidation, async (req, res) => {
   try {
-    const { username, password, firstName, lastName } = req.body;
+    const { username, password, firstName, lastName, balance } = req.body;
     const isUserExist = await User.findOne({ username: username });
     if (isUserExist._id) {
       return res.status(409).json({ msg: "User Already Exists" });
@@ -26,6 +26,10 @@ userRouter.post("/signup", signUpInputValidation, async (req, res) => {
       lastName: lastName,
     });
     if (response) {
+      const acc = await Account.create({
+        userId: response._id,
+        balance: balance,
+      });
       const token = jwt.sign({ userId: response._id }, JWT_SECRET);
       return res
         .status(200)
