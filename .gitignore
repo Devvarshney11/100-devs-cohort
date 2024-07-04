@@ -11,3 +11,5 @@ custom-hooks/node_modules/
 Typescript/dist/
 Postgress/node_modules/
 Postgress/dist/
+Prisma/node_modules/
+Prisma/.env/
